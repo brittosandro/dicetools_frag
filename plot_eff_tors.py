@@ -658,64 +658,86 @@ if __name__ == '__main__':
   else:
     mpl.rcParams.update({'font.size':18, 'font.family':'serif', 'ytick.major.pad':4})
 
-  if args.shiftinterval:
-      plt.plot(osphi,toten)
-      plt.xlabel(r"$\phi$ ($^\circ$)")
-      #plt.xlim(np.ceil([(180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)]))
-      plt.xticks(np.ceil(np.arange((180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)+1, 10)))
-      plt.ylabel(r"Potential energy (kcal/mol)")
-      plt.savefig(ftotal, bbox_inches='tight')
-      plt.gcf().clear()
-'''
+  if args.shiftinterval:    
+    # Plot Total Energy  
+    plt.plot(osphi,toten)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    plt.xticks(np.ceil(np.arange((180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)+1, 10)))
+    plt.ylabel(r"Potential energy (kcal/mol)")
+    plt.savefig(ftotal, bbox_inches='tight')
+    plt.gcf().clear()
 
-  # plot torsional energy
-  plt.plot(osphi,ostorsen)
-  plt.xlabel(r"$\phi$ ($^\circ$)")
-  if (args.shiftangles):
-    plt.xlim([0.,360.])
-    plt.xticks([0,60,120,180,240,300,360])
-  else:
-    plt.xlim([-180,180])
-    plt.xticks([-180,-120,-60,0,60,120,180])
-  plt.ylabel(r"Total dihedral energy (kcal/mol)")
-  plt.savefig(fdihed, bbox_inches='tight')
-  plt.gcf().clear()
+    #Plot torsional energy
+    plt.plot(osphi,ostorsen)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    plt.xticks(np.ceil(np.arange((180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)+1, 10)))
+    plt.ylabel(r"Total dihedral energy (kcal/mol)")
+    plt.savefig(ftotal, bbox_inches='tight')
+    plt.gcf().clear()
 
-  # plot nonbonded energy
-  plt.plot(osphi,osnben)
-  plt.xlabel(r"$\phi$ ($^\circ$)")
-  if (args.shiftangles):
-    plt.xlim([0.,360.])
-    plt.xticks([0,60,120,180,240,300,360])
-  else:
-    plt.xlim([-180,180])
-    plt.xticks([-180,-120,-60,0,60,120,180])
-  plt.ylabel(r"Nonbonded energy (kcal/mol)")
-  plt.savefig(fnb, bbox_inches='tight')
-  plt.gcf().clear()
+    #Plot nonbonded energy
+    plt.plot(osphi,osnben)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    plt.xticks(np.ceil(np.arange((180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)+1, 10)))
+    plt.ylabel(r"Nonbonded energy (kcal/mol)")
+    plt.savefig(fnb, bbox_inches='tight')
+    plt.gcf().clear()
 
-  # plot total energy
-  plt.plot(osphi,toten)
-  plt.xlabel(r"$\phi$ ($^\circ$)")
-  if (args.shiftangles):
-    plt.xlim([0.,360.])
-    plt.xticks([0,60,120,180,240,300,360])
+    #Plot the dipole moments
+    plt.plot(osphi,osdip)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    plt.xticks(np.ceil(np.arange((180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)+1, 10)))
+    plt.ylabel(r"$\mu$ (Debye)")
+    plt.savefig(fdip, bbox_inches='tight')
   else:
-    plt.xlim([-180,180])
-    plt.xticks([-180,-120,-60,0,60,120,180])
-  plt.ylabel(r"Potential energy (kcal/mol)")
-  plt.savefig(ftotal, bbox_inches='tight')
-  plt.gcf().clear()
+    # plot torsional energy
+    plt.plot(osphi,ostorsen)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    if (args.shiftangles):
+       plt.xlim([0.,360.])
+       plt.xticks([0,60,120,180,240,300,360])
+    else:
+       plt.xlim([-180,180])
+       plt.xticks([-180,-120,-60,0,60,120,180])
+       plt.ylabel(r"Total dihedral energy (kcal/mol)")
+       plt.savefig(fdihed, bbox_inches='tight')
+       plt.gcf().clear()
 
-  # plot the dipole moments
-  plt.plot(osphi,osdip)
-  plt.xlabel(r"$\phi$ ($^\circ$)")
-  if (args.shiftangles):
-    plt.xlim([0.,360.])
-    plt.xticks([0,60,120,180,240,300,360])
-  else:
-    plt.xlim([-180,180])
-    plt.xticks([-180,-120,-60,0,60,120,180])
-  plt.ylabel(r"$\mu$ (Debye)")
-  plt.savefig(fdip, bbox_inches='tight')
-'''
+    # plot nonbonded energy
+    plt.plot(osphi,osnben)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    if (args.shiftangles):
+      plt.xlim([0.,360.])
+      plt.xticks([0,60,120,180,240,300,360])
+    else:
+      plt.xlim([-180,180])
+      plt.xticks([-180,-120,-60,0,60,120,180])
+    plt.ylabel(r"Nonbonded energy (kcal/mol)")
+    plt.savefig(fnb, bbox_inches='tight')
+    plt.gcf().clear()
+
+    # plot total energy
+    plt.plot(osphi,toten)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    if (args.shiftangles):
+      plt.xlim([0.,360.])
+      plt.xticks([0,60,120,180,240,300,360])
+    else:
+      plt.xlim([-180,180])
+      plt.xticks([-180,-120,-60,0,60,120,180])
+    plt.ylabel(r"Potential energy (kcal/mol)")
+    plt.savefig(ftotal, bbox_inches='tight')
+    plt.gcf().clear()
+
+    # plot the dipole moments
+    plt.plot(osphi,osdip)
+    plt.xlabel(r"$\phi$ ($^\circ$)")
+    if (args.shiftangles):
+      plt.xlim([0.,360.])
+      plt.xticks([0,60,120,180,240,300,360])
+    else:
+      plt.xlim([-180,180])
+      plt.xticks([-180,-120,-60,0,60,120,180])
+    plt.ylabel(r"$\mu$ (Debye)")
+    plt.savefig(fdip, bbox_inches='tight')
+

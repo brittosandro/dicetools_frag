@@ -4,6 +4,11 @@ Receives a DICE ".txt" and a DICE ".dfr" to calculate the energy with a dihedral
 
 Author: Henrique Musseli Cezar
 Date: 08/JUN/2018
+
+Modification 1: Adding range of rotation at a user-specified angle. 
+
+Autor: Sandro F. de Brito
+Date: 06/out/2021 
 """
 
 import argparse

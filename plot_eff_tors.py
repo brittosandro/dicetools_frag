@@ -5,10 +5,10 @@ Receives a DICE ".txt" and a DICE ".dfr" to calculate the energy with a dihedral
 Author: Henrique Musseli Cezar
 Date: 08/JUN/2018
 
-Modification 1: Adding range of rotation at a user-specified angle. 
+Modification 1: Adding range of rotation at a user-specified angle.
 
 Autor: Sandro F. de Brito
-Date: 06/out/2021 
+Date: 06/out/2021
 """
 
 import argparse
@@ -521,6 +521,12 @@ def get_potential_curve(txtfile, dfrfile, ab1, ab2, ab3, ab4, points, base, prin
 
   if (gausstop):
     fgjf.close()
+    with open(base+'_scan.gjf') as f:
+        arq = f.readline()
+        new_arq = arq[0:len(arq)-1]
+    with open(base+'_scan.gjf', w) as f:
+        for line in new_arq:
+            f.write(line)            
 
   return angles, died_energies, nb_energies, dipoles
 
@@ -658,8 +664,8 @@ if __name__ == '__main__':
   else:
     mpl.rcParams.update({'font.size':18, 'font.family':'serif', 'ytick.major.pad':4})
 
-  if args.shiftinterval:    
-    # Plot Total Energy  
+  if args.shiftinterval:
+    # Plot Total Energy
     plt.plot(osphi,toten)
     plt.xlabel(r"$\phi$ ($^\circ$)")
     plt.xticks(np.ceil(np.arange((180.*refphi/np.pi)-(args.interphi), (180.*refphi/np.pi)+(args.interphi)+1, 10)))
@@ -740,4 +746,3 @@ if __name__ == '__main__':
       plt.xticks([-180,-120,-60,0,60,120,180])
     plt.ylabel(r"$\mu$ (Debye)")
     plt.savefig(fdip, bbox_inches='tight')
-

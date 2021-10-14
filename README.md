@@ -1,7 +1,7 @@
 # dicetools_frag
 
 Neste repositório serão armazenados scripts que resolvem problemas específicos de rotação em moléculas. 
-Os scripts são casos particulares do repositório https://github.com/hmcezar/dicetools. 
+Os scripts são casos particulares do repositório https://github.com/hmcezar/dicetools, Henrique M. Cezar, dicetools, (2018), GitHub repository. 
 
 ## plot_eff_tors.py
 

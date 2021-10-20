@@ -52,9 +52,10 @@ def plot_torsion(file, step):
                 transparent = True, format='png')
 
 def plot_short_twist(file, step):
-    '''Essa função recebe um arquivo .dat e números de step em que os dados
-    foram armazenados na simulação Monte Carlo. A função grava duas figuras,
-    uma em formato .pdf e outra em formato .png com um zoom em um intervalo. '''
+    '''Essa função recebe um arquivo .dat e número de steps em que os dados
+    foram armazenados na simulação Monte Carlo. A função salva duas figuras no
+    diretório corrente, uma em formato .pdf e outra em formato .png com um zoom
+    em um intervalo. '''
 
     angles = []
     with open(file, 'r') as f:

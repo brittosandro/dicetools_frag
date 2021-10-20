@@ -16,10 +16,11 @@ from matplotlib.patches import ConnectionPatch
 import seaborn as sns
 
 
-def plot_torsion(file, step):
-    ''' This function receives a file containing the dihedral angles of the MC
-    simulation, the number of steps the data was saved. Returns a picture in .pdf
-    and .png format.'''
+def datas_steps_angles(file, step):
+    '''Essa função recebe um arquivo contendo os ângulos da simulação MC em
+    formato .dat e o número de passos em que os dados foram salvos na simulação
+    e retorna uma tupla, cujos elementos são listas com ângulos e passos da
+    simulação.'''
 
     # read data and prepare the lists
     angles = []
@@ -29,6 +30,13 @@ def plot_torsion(file, step):
 
     stepmult = int(step)
     steps = [x * stepmult for x in range(1, len(angles)+1)]
+
+    return steps, angles
+
+def plot_torsion(steps, angles, nome):
+    ''' This function receives a file containing the dihedral angles of the MC
+    simulation, the number of steps the data was saved. Returns a picture in .pdf
+    and .png format.'''
 
     if find_executable('latex') and find_executable('dvipng'):
       mpl.rcParams.update({'font.size':18, 'text.usetex':True, 'font.family':
@@ -47,23 +55,15 @@ def plot_torsion(file, step):
     ax.set_xlim([0, steps[-1]])
     ax.set_ylim([-180, 180])
     ax.set_yticks([-180, -120, -60, 0, 60, 120, 180])
-    plt.savefig(os.path.splitext(file)[0] + ".pdf", bbox_inches='tight')
-    plt.savefig(os.path.splitext(file)[0] + ".png", dpi=300, orientation='portrait',
+    plt.savefig(nome + ".pdf", bbox_inches='tight')
+    plt.savefig(nome + ".png", dpi=300, orientation='portrait',
                 transparent = True, format='png')
 
-def plot_short_twist(file, step):
+def plot_short_twist(steps, angles, nome):
     '''Essa função recebe um arquivo .dat e número de steps em que os dados
     foram armazenados na simulação Monte Carlo. A função salva duas figuras no
     diretório corrente, uma em formato .pdf e outra em formato .png com um zoom
     em um intervalo. '''
-
-    angles = []
-    with open(file, 'r') as f:
-      for line in f:
-        angles.append(float(line.strip()))
-
-    stepmult = int(step)
-    steps = [x * stepmult for x in range(1, len(angles)+1)]
 
     if find_executable('latex') and find_executable('dvipng'):
       mpl.rcParams.update({'font.size':18, 'text.usetex':True, 'font.family':
@@ -152,10 +152,9 @@ def plot_short_twist(file, step):
     fig.add_artist(con4)
 
     # salvando figuras com boa margem
-    plt.savefig(os.path.splitext(file)[0] + ".pdf", bbox_inches='tight')
-    plt.savefig(os.path.splitext(file)[0] + ".png", dpi=300, orientation='portrait',
+    plt.savefig(nome + ".pdf", bbox_inches='tight')
+    plt.savefig(nome + ".png", dpi=300, orientation='portrait',
                 transparent = True, format='png', bbox_inches = 'tight', pad_inches = .1)
-
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description="Receives a '.dat' file containing angles to plot the evolution with the steps.")
@@ -166,7 +165,10 @@ if __name__ == '__main__':
   #parser.add_argument("-I", "--interphi", type=int, help="range angle (default = 20)", default=20)
   args = parser.parse_args()
 
+  dados = datas_steps_angles(args.fangles, args.stepmult)
+  nome = os.path.splitext(args.fangles)[0]
+
   if args.shorttwist:
-      plot_short_twist(args.fangles, args.stepmult)
+      plot_short_twist(dados[0], dados[1], nome)
   else:
-      plot_torsion(args.fangles, args.stepmult)
+      plot_torsion(dados[0], dados[1], nome)

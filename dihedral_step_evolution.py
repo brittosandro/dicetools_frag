@@ -82,7 +82,6 @@ def plot_short_twist(steps, angles, nome):
     # Eixos principais
     sub1 = fig.add_subplot(2, 2, 1) # 2 linhas, 2 colunas, somente uma célula
     sub1.scatter(steps, angles, s=2.5, color = '#7da8a9')
-    #sub1.plot(steps, angles, color = 'green')
     sub1.set_xlim(100000, 250000)
     sub1.set_ylim(75, 95)
     sub1.ticklabel_format(axis="x", style='scientific', scilimits=(0,0))
@@ -102,9 +101,7 @@ def plot_short_twist(steps, angles, nome):
     sub3.ticklabel_format(axis="x", style='scientific', scilimits=(0,0))
     sub3.set_ylim(-125, 125)
     sub3.set_yticks([-120, -90, -60, 0, 60, 90, 120])
-    #sub3.set_xlabel(r"Ciclo Monte Carlo", labelpad = 18)
-    #sub3.set_ylabel(r"$\phi$ ($^\circ$)", labelpad = 18)
-
+    
     fig.text(
           0.5,                      # Ordena posição x
           0.04,                     # Ordena posição y
